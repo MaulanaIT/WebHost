@@ -1,3 +1,7 @@
+<?php
+    include "../Database/daftar_kategori.php";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,8 +26,23 @@
 
         <main class="page-content">
             <div class="container-fluid">
+                <div class="form-popup" id="formHapus">
+                    <form action="daftar_kategori.php" class="form-container">
+                        <label>Hapus Kategori?</label> <br>
+
+                        <div style="text-align: center;">
+                            <button class="btn btn-danger btn-sm" style="background-color: #FF3A31;"
+                                onclick="closeForm()">Tidak</button>
+                            <button type="submit" class="btn btn-success btn-sm"
+                                style="background-color: #4ED964;">Ya</button>
+                        </div>
+                    </form>
+                </div>
+
                 <i class="fas fa-clipboard-list fa-2x" aria-hidden="true"></i>
                 <span>DAFTAR KATEGORI</span>
+
+                <button onclick="location.href='tambah_kategori.php'" class="btn add-button">Tambah Kategori</button>
 
                 <table>
                     <tr>
@@ -32,36 +51,21 @@
                         <th style="width: 10%">Edit</th>
                         <th style="width: 10%">Hapus</th>
                     </tr>
-                    <tr>
-                        <td>1</td>
-                        <td class="nama">Konsumsi</td>
-                        <td><i class='fas fa-pen-square fa-lg'></i></td>
-                        <td><i class='fas fa-trash fa-lg'></i></td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td class="nama">Non-Konsumsi</td>
-                        <td><i class='fas fa-pen-square fa-lg'></i></td>
-                        <td><i class='fas fa-trash fa-lg'></i></td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td class="nama">Makanan</td>
-                        <td><i class='fas fa-pen-square fa-lg'></i></td>
-                        <td><i class='fas fa-trash fa-lg'></i></td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td class="nama">Minuman</td>
-                        <td><i class='fas fa-pen-square fa-lg'></i></td>
-                        <td><i class='fas fa-trash fa-lg'></i></td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td class="nama">Alat Tulis</td>
-                        <td><i class='fas fa-pen-square fa-lg'></i></td>
-                        <td><i class='fas fa-trash fa-lg'></i></td>
-                    </tr>
+
+                    <?php 
+                        if ($result) {
+                            while ($row = mysqli_fetch_array($result)) {
+                                ?>
+                                <tr>
+                                    <td><?php echo $row["id"]?></td>
+                                    <td class="nama"><?php echo $row["nama"]?></td>
+                                    <td><i onclick="location.href='edit_kategori.php'" class='fas fa-pen-square fa-lg' id=<?php echo $row["id"] ?>></i></td>
+                                    <td><i class='fas fa-trash fa-lg' onclick="openForm()" id=<?php echo $row["id"] ?>></i></td>
+                                </tr>
+                                <?php
+                            }
+                        }
+                    ?>
                 </table>
             </div>
         </main>
@@ -82,6 +86,14 @@ jQuery(function($) {
         $(".page-wrapper").addClass("toggled");
     });
 });
+
+function openForm() {
+    document.getElementById("formHapus").style.display = "block";
+}
+
+function closeForm() {
+    document.getElementById("formHapus").style.display = "none";
+}
 </script>
 
 </html>

@@ -1,0 +1,37 @@
+.page-wrapper .page-content .container-fluid table {
+    width: 100%;
+}
+
+.page-wrapper .page-content .container-fluid .table-data, .table-data th, .table-data td {
+    border: solid black 1px;
+}
+
+.page-wrapper .page-content .container-fluid table tr th  {
+    padding: 12px;
+}
+
+.page-wrapper .page-content .container-fluid table tr td {
+    padding: 4px;
+}
+
+.page-wrapper .page-content .container-fluid table {
+    margin-top: 12px;
+    text-align: center;
+    align-items: center;
+}
+
+.fa-pen-square {
+    color: #4ED964;
+}
+
+.fa-trash {
+    color: #FF3A31;
+}
+
+.add-button {
+    background-color: #4ED964;
+    color: white;
+    float: right;
+    margin-top: 12px;
+    vertical-align: middle; 
+}

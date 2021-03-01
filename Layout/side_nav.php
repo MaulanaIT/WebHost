@@ -31,13 +31,13 @@
                             </a>
                         </li>
                         <li class="sidebar-dropdown">
-                            <a href="daftar_transaksi">
+                            <a href="daftar_transaksi.php">
                                 <i class="fas fa-file-alt" aria-hidden="true"></i>
                                 <span>Daftar Transaksi</span>
                             </a>
                         </li>
                         <li class="sidebar-dropdown">
-                            <a href="jual_beli">
+                            <a href="jual_beli.php">
                                 <i class="fas fa-shopping-cart" aria-hidden="true"></i>
                                 <span>Jual Beli</span>
                             </a>

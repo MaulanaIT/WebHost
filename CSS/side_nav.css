@@ -310,6 +310,11 @@
     transform: rotate(90deg);
     right: 17px;
   }
+
+  .page-content {
+    margin-top: 32px;
+    padding-bottom: 32px;
+  }
   
   .page-wrapper .page-content {
     display: inline-block;

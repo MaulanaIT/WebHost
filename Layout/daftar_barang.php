@@ -1,3 +1,7 @@
+<?php
+    include "../Database/daftar_barang.php";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,8 +26,23 @@
 
         <main class="page-content">
             <div class="container-fluid">
+                <div class="form-popup" id="formHapus">
+                    <form action="daftar_barang.php" class="form-container">
+                        <label>Hapus Barang?</label> <br>
+
+                        <div style="text-align: center;">
+                            <button class="btn btn-danger btn-sm" style="background-color: #FF3A31;"
+                                onclick="closeForm()">Tidak</button>
+                            <button type="submit" class="btn btn-success btn-sm"
+                                style="background-color: #4ED964;">Ya</button>
+                        </div>
+                    </form>
+                </div>
+
                 <i class="fas fa-boxes fa-2x" aria-hidden="true"></i>
                 <span>DAFTAR BARANG</span>
+
+                <button onclick="location.href='tambah_barang.php'" class="btn add-button">Tambah Barang</button>
 
                 <table>
                     <tr>
@@ -36,66 +55,24 @@
                         <th>Edit</th>
                         <th>Hapus</th>
                     </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Buku Tulis</td>
-                        <td>Konsumsi</td>
-                        <td>100</td>
-                        <td>1500</td>
-                        <td>2500</td>
-                        <td style="width: 10%"><i class='fas fa-pen-square fa-lg'></i></td>
-                        <td style="width: 10%"><i class='fas fa-trash fa-lg'></i></td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Buku Gambar</td>
-                        <td>Konsumsi</td>
-                        <td>28</td>
-                        <td>1000</td>
-                        <td>2000</td>
-                        <td style="width: 10%"><i class='fas fa-pen-square fa-lg'></i></td>
-                        <td style="width: 10%"><i class='fas fa-trash fa-lg'></i></td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Printer</td>
-                        <td>Non-Konsumsi</td>
-                        <td>3</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td style="width: 10%"><i class='fas fa-pen-square fa-lg'></i></td>
-                        <td style="width: 10%"><i class='fas fa-trash fa-lg'></i></td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>Pensil B3</td>
-                        <td>Konsumsi</td>
-                        <td>47</td>
-                        <td>1000</td>
-                        <td>3000</td>
-                        <td style="width: 10%"><i class='fas fa-pen-square fa-lg'></i></td>
-                        <td style="width: 10%"><i class='fas fa-trash fa-lg'></i></td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>Bolpoin Pilot</td>
-                        <td>Konsumsi</td>
-                        <td>100</td>
-                        <td>1500</td>
-                        <td>2500</td>
-                        <td style="width: 10%"><i class='fas fa-pen-square fa-lg'></i></td>
-                        <td style="width: 10%"><i class='fas fa-trash fa-lg'></i></td>
-                    </tr>
-                    <tr>
-                        <td>6</td>
-                        <td>Bolpoin Standar</td>
-                        <td>Konsumsi</td>
-                        <td>100</td>
-                        <td>1500</td>
-                        <td>2500</td>
-                        <td style="width: 10%"><i class='fas fa-pen-square fa-lg'></i></td>
-                        <td style="width: 10%"><i class='fas fa-trash fa-lg'></i></td>
-                    </tr>
+                    <?php
+                        if ($result) {
+                            while ($row = mysqli_fetch_array($result)) {?>
+                                <tr>
+                                    <td><?php echo $row["id"]; ?></td>
+                                    <td><?php echo $row["nama"]; ?></td>
+                                    <td><?php echo $row["kategori"]; ?></td>
+                                    <td><?php echo $row["jumlah"]; ?></td>
+                                    <td><?php echo $row["harga_beli"]; ?></td>
+                                    <td><?php echo $row["harga_jual"]; ?></td>
+                                    <td style="width: 10%"><i onclick="location.href=" edit_barang.php""
+                                            class="fas fa-pen-square fa-lg"></i></td>
+                                    <td style="width: 10%"><i class="fas fa-trash fa-lg" onclick="openForm()"></i></td>
+                                </tr>
+                    <?php
+                            }
+                        }
+                    ?>
                 </table>
             </div>
         </main>
@@ -116,6 +93,14 @@ jQuery(function($) {
         $(".page-wrapper").addClass("toggled");
     });
 });
+
+function openForm() {
+    document.getElementById("formHapus").style.display = "block";
+}
+
+function closeForm() {
+    document.getElementById("formHapus").style.display = "none";
+}
 </script>
 
 </html>
