@@ -8,7 +8,7 @@
             $nama = $_POST["namaKategori"];
     
             if ($nama != "" && $nama != null) {
-                $query = "INSERT INTO daftar_kategori (nama) VALUES ('".$nama."')";    
+                $query = "INSERT INTO daftar_kategori (nama) VALUES ('$nama')";    
 
                 $result = mysqli_query($connect, $query);
         

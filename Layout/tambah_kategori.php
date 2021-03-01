@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <?php include '../Js/bootstrap.php' ?>
-    <?php include '../Js/jquery.php' ?>
+    <?php include '../Js/bootstrap.php'; ?>
+    <?php include '../Js/jquery.php'; ?>
 
     <link rel="stylesheet" href="../CSS/side_nav.css">
     <link rel="stylesheet" href="../CSS/tambah_kategori.css">
@@ -16,9 +16,9 @@
 
 <body>
     <div class="page-wrapper chiller-theme toggled">
-        <?php include 'side_nav.php' ?>
+        <?php include 'side_nav.php'; ?>
 
-        <?php include 'header.php' ?>
+        <?php include 'header.php'; ?>
 
         <main class="page-content">
             <div class="container-fluid">
@@ -45,9 +45,7 @@
         </main>
     </div>
 
-    <?php include 'footer.php' ?>
-
-    <?php include '../Js/js.php' ?>
+    <?php include 'footer.php'; ?>
 </body>
 
 <script>

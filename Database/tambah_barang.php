@@ -12,7 +12,7 @@
             $hargaJual = $_POST["hargaJual"];
     
             if ($nama != "" && $nama != null && $kategori != "" && $jumlah != "" && $hargaPokok != "" && $hargaJual != "") {
-                $query = "INSERT INTO daftar_barang (nama, kategori, jumlah, harga_beli, harga_jual) VALUES ('".$nama."', '".$kategori."', '".$jumlah."', '".$hargaPokok."', '".$hargaJual."')";
+                $query = "INSERT INTO daftar_barang (nama, kategori, jumlah, harga_beli, harga_jual) VALUES ('$nama', '$kategori', '$jumlah', '$hargaPokok', '$hargaJual')";
     
                 $result = mysqli_query($connect, $query);
         

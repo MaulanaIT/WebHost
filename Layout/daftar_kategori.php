@@ -9,8 +9,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <?php include '../Js/bootstrap.php' ?>
-    <?php include '../Js/jquery.php' ?>
+    <?php include '../Js/bootstrap.php'; ?>
+    <?php include '../Js/jquery.php'; ?>
 
     <link rel="stylesheet" href="../CSS/side_nav.css">
     <link rel="stylesheet" href="../CSS/daftar_kategori.css">
@@ -20,9 +20,9 @@
 
 <body>
     <div class="page-wrapper chiller-theme toggled">
-        <?php include 'side_nav.php' ?>
+        <?php include 'side_nav.php'; ?>
 
-        <?php include 'header.php' ?>
+        <?php include 'header.php'; ?>
 
         <main class="page-content">
             <div class="container-fluid">
@@ -34,7 +34,7 @@
                             <button class="btn btn-danger btn-sm" style="background-color: #FF3A31;"
                                 onclick="closeForm()">Tidak</button>
                             <button type="submit" class="btn btn-success btn-sm"
-                                style="background-color: #4ED964;">Ya</button>
+                                style="background-color: #4ED964;" onclick="hapusKategori()">Ya</button>
                         </div>
                     </form>
                 </div>
@@ -60,7 +60,7 @@
                                     <td><?php echo $row["id"]?></td>
                                     <td class="nama"><?php echo $row["nama"]?></td>
                                     <td><i onclick="location.href='edit_kategori.php'" class='fas fa-pen-square fa-lg' id=<?php echo $row["id"] ?>></i></td>
-                                    <td><i class='fas fa-trash fa-lg' onclick="openForm()" id=<?php echo $row["id"] ?>></i></td>
+                                    <td><i class='fas fa-trash fa-lg' onclick="openForm(this.id)" id=<?php echo $row["id"] ?>></i></td>
                                 </tr>
                                 <?php
                             }
@@ -71,29 +71,44 @@
         </main>
     </div>
 
-    <?php include 'footer.php' ?>
+    <?php include 'footer.php'; ?>
 
-    <?php include '../Js/js.php' ?>
+    <script type="text/javascript">
+
+        var itemID;
+
+        jQuery(function($) {
+            $("#close-sidebar").click(function() {
+                $(".page-wrapper").removeClass("toggled");
+            });
+
+            $("#show-sidebar").click(function() {
+                $(".page-wrapper").addClass("toggled");
+            });
+        });
+
+        function openForm(id) {
+            document.getElementById("formHapus").style.display = "block";
+
+            itemID = id;
+        }
+
+        function closeForm() {
+            document.getElementById("formHapus").style.display = "none";
+        }
+
+        function hapusKategori() {            
+            var id = itemID;
+
+            $.post("../Database/hapus_kategori.php", {
+                id: id
+
+                }, function(data, status) {
+                    window.location.reload(true);
+                }
+            );
+        }
+    </script>
 </body>
-
-<script>
-jQuery(function($) {
-    $("#close-sidebar").click(function() {
-        $(".page-wrapper").removeClass("toggled");
-    });
-
-    $("#show-sidebar").click(function() {
-        $(".page-wrapper").addClass("toggled");
-    });
-});
-
-function openForm() {
-    document.getElementById("formHapus").style.display = "block";
-}
-
-function closeForm() {
-    document.getElementById("formHapus").style.display = "none";
-}
-</script>
 
 </html>
