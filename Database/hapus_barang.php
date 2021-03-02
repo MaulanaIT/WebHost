@@ -4,7 +4,7 @@
     if (isset($_POST)) {
         $id = $_POST["id"];
 
-        $query = "DELETE FROM daftar_kategori WHERE id='$id'";
+        $query = "DELETE FROM daftar_barang WHERE id='$id'";
 
         mysqli_query($connect, $query);
         

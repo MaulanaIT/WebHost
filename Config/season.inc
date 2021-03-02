@@ -1,0 +1,3 @@
+<?php
+    seasson_start();
+?>

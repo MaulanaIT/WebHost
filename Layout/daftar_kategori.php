@@ -44,7 +44,7 @@
 
                 <button onclick="location.href='tambah_kategori.php'" class="btn add-button">Tambah Kategori</button>
 
-                <table>
+                <table class="table-data">
                     <tr>
                         <th style="width: 5%">No</th>
                         <th class="nama">Nama Kategori</th>
@@ -53,19 +53,35 @@
                     </tr>
 
                     <?php 
-                        if ($result) {
-                            while ($row = mysqli_fetch_array($result)) {
+                        if ($resultKategori) {
+                            $i = 1 + $offset * ($page - 1);
+                            while ($row = mysqli_fetch_array($resultKategori)) {
                                 ?>
                                 <tr>
-                                    <td><?php echo $row["id"]?></td>
-                                    <td class="nama"><?php echo $row["nama"]?></td>
-                                    <td><i onclick="location.href='edit_kategori.php'" class='fas fa-pen-square fa-lg' id=<?php echo $row["id"] ?>></i></td>
-                                    <td><i class='fas fa-trash fa-lg' onclick="openForm(this.id)" id=<?php echo $row["id"] ?>></i></td>
+                                    <form action="edit_kategori.php" method="POST">
+                                        <div class="form-group" style="display: none;">
+                                            <input type="text" name="idKategori" value="<?php echo $row['id'] ?>">
+                                        </div>
+                                        <td><?php echo $i; ?></td>
+                                        <td class="nama"><?php echo $row["nama"]; ?></td>
+                                        <td><button type="submit" class="btn"><i class='fas fa-pen-square fa-lg'></i></button></td>
+                                    </form>
+                                    <td><button type="submit" class="btn"><i class='fas fa-trash fa-lg' onclick="openForm(this.id)" id=<?php echo $row["id"] ?>></i></button></td>
                                 </tr>
                                 <?php
+                                $i++;
                             }
                         }
                     ?>
+                </table>
+
+                <table style="float: right; border: none; width: 10%;">
+                    <tr>
+                        <td style="<?php if ($page <= 1) {echo "display: none;";}?> "><a href="daftar_kategori.php?page=1">First</a></td>
+                        <td style="<?php if ($page <= 1) {echo "display: none;";}?> "><a href="daftar_kategori.php?page=<?php echo $page - 1 ?>">Prev</a></td>
+                        <td style="<?php if ($page >= $totalPages) {echo "display: none;";}?> "><a href="daftar_kategori.php?page=<?php echo $page + 1 ?>">Next</a></td>
+                        <td style="<?php if ($page >= $totalPages) {echo "display: none;";}?> "><a href="daftar_kategori.php?page=<?php echo $totalPages ?>">Last</a></td>
+                    </tr>
                 </table>
             </div>
         </main>
@@ -97,13 +113,12 @@
             document.getElementById("formHapus").style.display = "none";
         }
 
-        function hapusKategori() {            
-            var id = itemID;
-
+        function hapusKategori() {   
             $.post("../Database/hapus_kategori.php", {
-                id: id
+                id: itemID
 
                 }, function(data, status) {
+                    alert("Data Berhasil Dihapus");
                     window.location.reload(true);
                 }
             );

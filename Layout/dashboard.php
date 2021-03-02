@@ -1,3 +1,9 @@
+<?php
+    include "../Database/daftar_barang.php";
+    include "../Database/daftar_kategori.php";
+    include "../Database/daftar_transaksi.php";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,7 +39,7 @@
                                 <table>
                                     <tr>
                                         <td>
-                                            <h2>128</h2>
+                                            <h2><?php echo $resultJumlahBarang ?></h2>
                                             <h6><a href="daftar_barang.php" style="text-decoration: none; color: black;">Lihat detail >></a></h6>
                                         </td>
                                         <td>
@@ -50,7 +56,7 @@
                                 <table>
                                     <tr>
                                         <td>
-                                            <h2>25</h2>
+                                            <h2><?php echo $resultJumlahKategori ?></h2>
                                             <h6><a href="daftar_kategori.php" style="text-decoration: none; color: black;">Lihat detail >></a></h6>
                                         </td>
                                         <td>
@@ -67,7 +73,7 @@
                                 <table>
                                     <tr>
                                         <td>
-                                            <h2>1128</h2>
+                                            <h2><?php echo $resultJumlahTransaksi ?></h2>
                                             <h6><a href="daftar_transaksi.php" style="text-decoration: none; color: black;">Lihat detail >></a></h6>
                                         </td>
                                         <td>

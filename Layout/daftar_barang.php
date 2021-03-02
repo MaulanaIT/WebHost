@@ -34,7 +34,7 @@
                             <button class="btn btn-danger btn-sm" style="background-color: #FF3A31;"
                                 onclick="closeForm()">Tidak</button>
                             <button type="submit" class="btn btn-success btn-sm"
-                                style="background-color: #4ED964;">Ya</button>
+                                style="background-color: #4ED964;" onclick="hapusBarang()">Ya</button>
                         </div>
                     </form>
                 </div>
@@ -44,7 +44,7 @@
 
                 <button onclick="location.href='tambah_barang.php'" class="btn add-button">Tambah Barang</button>
 
-                <table>
+                <table class="table-data">
                     <tr>
                         <th>No</th>
                         <th>Nama Barang</th>
@@ -55,24 +55,41 @@
                         <th>Edit</th>
                         <th>Hapus</th>
                     </tr>
-                    <?php
-                        if ($result) {
-                            while ($row = mysqli_fetch_array($result)) {?>
+                        <?php
+                        if ($resultBarang) {
+                            $i = 1 + $offset * ($page - 1);
+
+                            while ($row = mysqli_fetch_array($resultBarang)) {?>
                                 <tr>
-                                    <td><?php echo $row["id"]; ?></td>
-                                    <td><?php echo $row["nama"]; ?></td>
-                                    <td><?php echo $row["kategori"]; ?></td>
-                                    <td><?php echo $row["jumlah"]; ?></td>
-                                    <td><?php echo $row["harga_beli"]; ?></td>
-                                    <td><?php echo $row["harga_jual"]; ?></td>
-                                    <td style="width: 10%"><i onclick="location.href=" edit_barang.php""
-                                            class="fas fa-pen-square fa-lg"></i></td>
-                                    <td style="width: 10%"><i class="fas fa-trash fa-lg" onclick="openForm()"></i></td>
+                                    <form action="edit_barang.php" method="POST">
+                                        <div class="form-group" style="display: none;">
+                                            <input type="text" name="idBarang" value="<?php echo $row['id'] ?>">
+                                        </div>
+                                        <td><?php echo $i; ?></td>
+                                        <td><?php echo $row["nama"]; ?></td>
+                                        <td><?php echo $row["kategori"]; ?></td>
+                                        <td><?php echo $row["jumlah"]; ?></td>
+                                        <td><?php echo $row["harga_beli"]; ?></td>
+                                        <td><?php echo $row["harga_jual"]; ?></td>
+                                        <td style="width: 10%"><button type="submit" class="btn"><i class="fas fa-pen-square fa-lg"></i></button></td>
+                                    </form>
+
+                                    <td style="width: 10%"><button type="submit" class="btn"><i class="fas fa-trash fa-lg" onclick="openForm(this.id)" id="<?php echo $row["id"]; ?>"></i></button></td>
                                 </tr>
-                    <?php
+                        <?php
+                        $i++;
                             }
                         }
                     ?>
+                </table>
+
+                <table style="float: right; border: none; width: 10%;">
+                    <tr>
+                        <td style="<?php if ($page <= 1) {echo "display: none;";}?> "><a href="daftar_barang.php?page=1">First</a></td>
+                        <td style="<?php if ($page <= 1) {echo "display: none;";}?> "><a href="daftar_barang.php?page=<?php echo $page - 1 ?>">Prev</a></td>
+                        <td style="<?php if ($page >= $totalPages) {echo "display: none;";}?> "><a href="daftar_barang.php?page=<?php echo $page + 1 ?>">Next</a></td>
+                        <td style="<?php if ($page >= $totalPages) {echo "display: none;";}?> "><a href="daftar_barang.php?page=<?php echo $totalPages ?>">Last</a></td>
+                    </tr>
                 </table>
             </div>
         </main>
@@ -82,6 +99,9 @@
 </body>
 
 <script>
+
+var itemID;
+
 jQuery(function($) {
     $("#close-sidebar").click(function() {
         $(".page-wrapper").removeClass("toggled");
@@ -92,8 +112,21 @@ jQuery(function($) {
     });
 });
 
-function openForm() {
+function hapusBarang() {       
+    $.post("../Database/hapus_barang.php", {
+        id: itemID
+
+        }, function(data, status) {
+            alert("Data Berhasil Dihapus");
+            window.location.reload(true);
+        }
+    );
+}
+
+function openForm(id) {
     document.getElementById("formHapus").style.display = "block";
+
+    itemID = id;
 }
 
 function closeForm() {

@@ -1,3 +1,7 @@
+<?php
+    include "../Database/selected_kategori.php";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,16 +31,25 @@
 
                 <table>
                     <td>
-                        <form class="form-inline">
+                        <form class="form-inline" action="../Database/edit_kategori.php" method="POST">
                             <div class="form-group">
                                 <label>Nama Kategori</label> <br>
-                                <input type="text" class="form-control" id="inputNamaKategori">
+                                <?php
+                                    if ($resultKategori) {
+                                        while($row = mysqli_fetch_array($resultKategori)) {
+                                            ?>
+                                                <input type="text" class="form-control" style="display: none;" name="idEditKategori" value="<?php echo $row["id"]; ?>"></input>
+                                                <input type="text" class="form-control" name="namaEditKategori" id="inputNamaKategori" value="<?php echo $row["nama"]; ?>">
+                                            <?php
+                                        }
+                                    }
+                                ?>
                             </div>
 
                             <br>
                             <div style="float: right;">
-                                <button class="btn btn-danger" style="background-color: #FF3A31;">Batal</button>
-                                <button class="btn btn-primary" style="background-color: #0094FF;">Simpan</button>
+                                <button type="submit" class="btn btn-danger" style="background-color: #FF3A31;" name="btnSubmit" value="cancel">Batal</button>
+                                <button type="submit" class="btn btn-primary" style="background-color: #0094FF;" name="btnSubmit" value="submit">Simpan</button>
                             </div>
                         </form>
                     </td>
@@ -49,6 +62,9 @@
 </body>
 
 <script>
+
+var itemID;
+
 jQuery(function($) {
     $("#close-sidebar").click(function() {
         $(".page-wrapper").removeClass("toggled");
@@ -58,6 +74,17 @@ jQuery(function($) {
         $(".page-wrapper").addClass("toggled");
     });
 });
+
+function editKategori(id) {       
+    $.post("../Database/edit_kategori.php", {
+        id: itemID
+
+        }, function(data, status) {
+            alert("Data Berhasil Dihapus");
+            window.location.reload(true);
+        }
+    );
+}
 </script>
 
 </html>

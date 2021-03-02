@@ -29,7 +29,7 @@
     width: 100%;
 }
 
-.page-wrapper .page-content .container-fluid table, th, td {
+.page-wrapper .page-content .container-fluid .table-data, .table-data th, .table-data td {
     border: solid black 1px;
 }
 

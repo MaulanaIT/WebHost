@@ -1,3 +1,8 @@
+<?php
+    include "../Database/selected_barang.php";
+    include "../Database/daftar_kategori.php";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,33 +32,45 @@
 
                 <table>
                     <td>
-                        <form class="form-inline">
-                            <div class="form-group">
-                                <label>Nama Barang</label> <br>
-                                <input type="text" class="form-control" id="inputNamaBarang">
-                            </div>
-                            <div class="form-group">
-                                <label>Jenis Kategori Barang</label> <br>
-                                <select class="form-control custom-select my-1 mr-sm-2" id="inputKategoriBarang">
-                                    <option value="Konsumsi">Konsumsi</option>
-                                    <option value="NonKonsumsi">Non-Konsumsi</option>
-                                    <option value="Makanan">Makanan</option>
-                                    <option value="Minuman">Minuman</option>
-                                    <option value="AlatTulis">Alat Tulis</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Jumlah Barang</label> <br>
-                                <input type="number" class="form-control" id="inputJumlahBarang">
-                            </div>
-                            <div class="form-group">
-                                <label>Harga Pokok</label> <br>
-                                <input type="number" class="form-control" id="inputHargaPokok">
-                            </div>
-                            <div class="form-group">
-                                <label>Harga Jual</label> <br>
-                                <input type="number" class="form-control" id="inputHargaJual">
-                            </div>
+                        <form class="form-inline" action="../Database/edit_barang.php" method="POST">
+                            <?php 
+                            if ($resultBarang) {
+                                while ($row = mysqli_fetch_array($resultBarang)) {
+                                    ?>
+                                    <div class="form-group">
+                                        <label>Nama Barang</label> <br>
+                                        <input type="text" class="form-control" id="inputNamaBarang" value="<?php echo $row["nama"]; ?>">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Jenis Kategori Barang</label> <br>
+                                        <select class="form-control custom-select my-1 mr-sm-2" id="inputKategoriBarang">
+                                            <?php
+                                                if ($resultKategori) {
+                                                    while ($rowKategori = mysqli_fetch_array($resultKategori)) {
+                                                        ?>
+                                                        <option value="<?php echo $rowKategori["nama"] ?>"><?php echo $rowKategori["nama"] ?></option>
+                                                        <?php
+                                                    }
+                                                }
+                                            ?>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Jumlah Barang</label> <br>
+                                        <input type="number" class="form-control" id="inputJumlahBarang" value="<?php echo $row["jumlah"]; ?>">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Harga Pokok</label> <br>
+                                        <input type="number" class="form-control" id="inputHargaPokok" value="<?php echo $row["harga_beli"]; ?>">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Harga Jual</label> <br>
+                                        <input type="number" class="form-control" id="inputHargaJual" value="<?php echo $row["harga_jual"]; ?>">
+                                    </div>
+                                    <?php
+                                }
+                            }
+                        ?>
 
                             <br>
                             <div style="float: right;">

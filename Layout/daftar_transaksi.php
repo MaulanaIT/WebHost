@@ -1,3 +1,7 @@
+<?php
+    include "../Database/daftar_transaksi.php"
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -35,54 +39,28 @@
                         <th>Aktivitas</th>
                         <th>Profit/Defisit</th>
                     </tr>
-                    <tr>
-                        <td>21-02-2021</td>
-                        <td>Ian</td>
-                        <td>Menjual Buku Tulis sebanyak 1 buah</td>
-                        <td style="color: #4ED964">+ 2500</td>
-                    </tr>
-                    <tr>
-                        <td>20-02-2021</td>
-                        <td>Ian</td>
-                        <td>Menjual Buku Gambar sebanyak 1 buah</td>
-                        <td style="color: #4ED964">+ 2000</td>
-                    </tr>
-                    <tr>
-                        <td>20-02-2021</td>
-                        <td>Ian</td>
-                        <td>Menjual Bolpoin Pilot sebanyak 1 buah</td>
-                        <td style="color: #4ED964">+ 2500</td>
-                    </tr>
-                    <tr>
-                        <td>20-02-2021</td>
-                        <td>Admin 1</td>
-                        <td>Membeli Pensil 3B sebanyak 100 buah</td>
-                        <td style="color: #FF3A31">- 100000</td>
-                    </tr>
-                    <tr>
-                        <td>20-02-2021</td>
-                        <td>Admin 2</td>
-                        <td>Menjual Buku Tulis sebanyak 100 buah</td>
-                        <td style="color: #FF3A31">- 250000</td>
-                    </tr>
-                    <tr>
-                        <td>20-02-2021</td>
-                        <td>Admin 2</td>
-                        <td>Menjual Buku Tulis sebanyak 2 buah</td>
-                        <td style="color: #4ED964">+ 5000</td>
-                    </tr>
+                    <?php
+                        if ($resultTransaksi) {
+                            while ($row = mysqli_fetch_array($resultTransaksi)) {
+                                ?>
+                                <tr>
+                                    <td><?php echo $row["tanggal"] ?></td>
+                                    <td><?php echo $row["admin"] ?></td>
+                                    <td><?php echo $row["aktivitas"] ?></td>
+                                    <td><?php echo $row["profit_defisit"] ?></td>
+                                </tr>
+                                <?php
+                            }
+                        }
+                    ?>
                 </table>
 
-                <table style="border: none; float: right; width: 10%;">
+                <table style="float: right; border: none; width: 10%;">
                     <tr>
-                        <td>Sebelumnya</td>
-                        <td>1</td>
-                        <td>2</td>
-                        <td>3</td>
-                        <td>...</td>
-                        <td>9</td>
-                        <td>10</td>
-                        <td>Selanjutnya</td>
+                        <td style="<?php if ($page <= 1) {echo "display: none;";}?> "><a href="daftar_transaksi.php?page=1">First</a></td>
+                        <td style="<?php if ($page <= 1) {echo "display: none;";}?> "><a href="daftar_transaksi.php?page=<?php echo $page - 1 ?>">Prev</a></td>
+                        <td style="<?php if ($page >= $totalPages) {echo "display: none;";}?> "><a href="daftar_transaksi.php?page=<?php echo $page + 1 ?>">Next</a></td>
+                        <td style="<?php if ($page >= $totalPages) {echo "display: none;";}?> "><a href="daftar_transaksi.php?page=<?php echo $totalPages ?>">Last</a></td>
                     </tr>
                 </table>
             </div>
