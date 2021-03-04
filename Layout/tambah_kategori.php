@@ -1,3 +1,7 @@
+<?php
+    include '../Config/session.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 

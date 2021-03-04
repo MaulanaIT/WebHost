@@ -1,4 +1,5 @@
 <?php
+    include '../Config/session.php';
     include "../Database/daftar_barang.php";
 ?>
 
@@ -26,17 +27,15 @@
 
         <main class="page-content">
             <div class="container-fluid">
-                <div class="form-popup" id="formHapus">
-                    <form action="daftar_barang.php" class="form-container">
-                        <label>Hapus Barang?</label> <br>
+                <div class="form-popup form-container" id="formHapus">
+                    <label>Hapus Barang?</label> <br>
 
-                        <div style="text-align: center;">
-                            <button class="btn btn-danger btn-sm" style="background-color: #FF3A31;"
-                                onclick="closeForm()">Tidak</button>
-                            <button type="submit" class="btn btn-success btn-sm"
-                                style="background-color: #4ED964;" onclick="hapusBarang()">Ya</button>
-                        </div>
-                    </form>
+                    <div style="text-align: center;">
+                        <button class="btn btn-danger btn-sm" style="background-color: #FF3A31;"
+                            onclick="closeForm()">Tidak</button>
+                        <button type="submit" class="btn btn-success btn-sm"
+                            style="background-color: #4ED964;" onclick="hapusBarang()">Ya</button>
+                    </div>
                 </div>
 
                 <i class="fas fa-boxes fa-2x" aria-hidden="true"></i>
@@ -46,20 +45,21 @@
 
                 <table class="table-data">
                     <tr>
-                        <th>No</th>
+                        <th style="width: 2%">No</th>
                         <th>Nama Barang</th>
                         <th>Kategori Barang</th>
                         <th>Jumlah Barang</th>
                         <th>Harga Pokok</th>
                         <th>Harga Jual</th>
-                        <th>Edit</th>
-                        <th>Hapus</th>
+                        <th style="width: 10%">Edit</th>
+                        <th style="width: 10%">Hapus</th>
                     </tr>
                         <?php
                         if ($resultBarang) {
                             $i = 1 + $offset * ($page - 1);
 
-                            while ($row = mysqli_fetch_array($resultBarang)) {?>
+                            while ($row = mysqli_fetch_array($resultBarang)) {
+                                ?>
                                 <tr>
                                     <form action="edit_barang.php" method="POST">
                                         <div class="form-group" style="display: none;">
@@ -80,7 +80,7 @@
                         $i++;
                             }
                         }
-                    ?>
+                        ?>
                 </table>
 
                 <table style="float: right; border: none; width: 10%;">

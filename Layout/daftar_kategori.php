@@ -1,4 +1,5 @@
 <?php
+    include '../Config/session.php';
     include "../Database/daftar_kategori.php";
 ?>
 
@@ -46,7 +47,7 @@
 
                 <table class="table-data">
                     <tr>
-                        <th style="width: 5%">No</th>
+                        <th style="width: 2%">No</th>
                         <th class="nama">Nama Kategori</th>
                         <th style="width: 10%">Edit</th>
                         <th style="width: 10%">Hapus</th>

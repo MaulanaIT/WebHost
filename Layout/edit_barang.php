@@ -1,4 +1,5 @@
 <?php
+    include '../Config/session.php';
     include "../Database/selected_barang.php";
     include "../Database/daftar_kategori.php";
 ?>
@@ -34,16 +35,20 @@
                     <td>
                         <form class="form-inline" action="../Database/edit_barang.php" method="POST">
                             <?php 
-                            if ($resultBarang) {
-                                while ($row = mysqli_fetch_array($resultBarang)) {
+                            if ($resultSelectedBarang) {
+                                while ($row = mysqli_fetch_array($resultSelectedBarang)) {
                                     ?>
+                                    <div class="form-group" style="display: none;">
+                                        <label>ID</label> <br>
+                                        <input type="text" class="form-control" name="idEditBarang" value="<?php echo $row["id"]; ?>">
+                                    </div>
                                     <div class="form-group">
                                         <label>Nama Barang</label> <br>
-                                        <input type="text" class="form-control" id="inputNamaBarang" value="<?php echo $row["nama"]; ?>">
+                                        <input type="text" class="form-control" name="namaEditBarang" value="<?php echo $row["nama"]; ?>">
                                     </div>
                                     <div class="form-group">
                                         <label>Jenis Kategori Barang</label> <br>
-                                        <select class="form-control custom-select my-1 mr-sm-2" id="inputKategoriBarang">
+                                        <select class="form-control custom-select my-1 mr-sm-2" name="kategoriEditBarang">
                                             <?php
                                                 if ($resultKategori) {
                                                     while ($rowKategori = mysqli_fetch_array($resultKategori)) {
@@ -57,15 +62,15 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Jumlah Barang</label> <br>
-                                        <input type="number" class="form-control" id="inputJumlahBarang" value="<?php echo $row["jumlah"]; ?>">
+                                        <input type="number" class="form-control" name="jumlahEditBarang" value="<?php echo $row["jumlah"]; ?>">
                                     </div>
                                     <div class="form-group">
                                         <label>Harga Pokok</label> <br>
-                                        <input type="number" class="form-control" id="inputHargaPokok" value="<?php echo $row["harga_beli"]; ?>">
+                                        <input type="number" class="form-control" name="hargaPokokEditBarang" value="<?php echo $row["harga_beli"]; ?>">
                                     </div>
                                     <div class="form-group">
                                         <label>Harga Jual</label> <br>
-                                        <input type="number" class="form-control" id="inputHargaJual" value="<?php echo $row["harga_jual"]; ?>">
+                                        <input type="number" class="form-control" name="hargaJualEditBarang" value="<?php echo $row["harga_jual"]; ?>">
                                     </div>
                                     <?php
                                 }

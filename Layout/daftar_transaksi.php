@@ -1,5 +1,6 @@
 <?php
-    include "../Database/daftar_transaksi.php"
+    include '../Config/session.php';
+    include "../Database/daftar_transaksi.php";
 ?>
 
 <!DOCTYPE html>
@@ -47,7 +48,12 @@
                                     <td><?php echo $row["tanggal"] ?></td>
                                     <td><?php echo $row["admin"] ?></td>
                                     <td><?php echo $row["aktivitas"] ?></td>
-                                    <td><?php echo $row["profit_defisit"] ?></td>
+                                    <td style="<?php 
+                                    if ($row["jenis_transaksi"] == "Pembelian") {
+                                        echo "color: #FF3A31;";
+                                    } else {
+                                        echo "color: #4ED964;";
+                                    } ?> font-weight: bold;" ><?php echo $row["profit_defisit"] ?></td>
                                 </tr>
                                 <?php
                             }

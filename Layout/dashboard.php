@@ -1,4 +1,5 @@
 <?php
+    include '../Config/session.php';
     include "../Database/daftar_barang.php";
     include "../Database/daftar_kategori.php";
     include "../Database/daftar_transaksi.php";

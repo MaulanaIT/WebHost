@@ -10,6 +10,6 @@
 
         $query = "SELECT * FROM daftar_barang WHERE id='$id'";
 
-        $result = mysqli_query($connect, $query);
+        $resultSelectedBarang = mysqli_query($connect, $query);
     }
 ?>

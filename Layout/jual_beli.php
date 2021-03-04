@@ -1,3 +1,8 @@
+<?php
+    include '../Config/session.php';
+    include "../Database/daftar_barang.php";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,65 +27,77 @@
 
         <main class="page-content">
             <div class="container-fluid">
+                <div class="form-popup form-container" id="formJual">
+                    <label>Jumlah Barang</label> <br>
+                    <input type="number" class="form-control" style="text-align: center;" name="jumlahJualBarang" id="inputJumlahJualBarang" onchange="formTotalHarga('Jual')">
+
+                    <label>Total Harga:</label>
+                    <label id="totalHargaJual">0</label>
+
+                    <div style="text-align: center;">
+                        <button class="btn btn-danger btn-sm" style="background-color: #FF3A31;"
+                            onclick="closeForm('Jual')">Batal</button>
+                        <button type="submit" class="btn btn-success btn-sm"
+                            style="background-color: #4ED964;" onclick="jualBarang()">Jual</button>
+                    </div>
+                </div>
+
+                <div class="form-popup form-container" id="formBeli">
+                    <label>Jumlah Barang</label> <br>
+                    <input type="number" class="form-control" style="text-align: center;" name="jumlahBeliBarang" id="inputJumlahBeliBarang"  onchange="formTotalHarga('Beli')">
+
+                    <label>Total Harga:</label>
+                    <label id="totalHargaBeli">0</label>
+
+                    <div style="text-align: center;">
+                        <button class="btn btn-danger btn-sm" style="background-color: #FF3A31;"
+                            onclick="closeForm('Beli')">Batal</button>
+                        <button type="submit" class="btn btn-success btn-sm"
+                            style="background-color: #4ED964;" onclick="beliBarang()">Beli</button>
+                    </div>
+                </div>
+
                 <i class="fas fa-boxes fa-2x" aria-hidden="true"></i>
                 <span>JUAL BELI</span>
 
-                <table>
+                <table class="table-data">
                     <tr>
-                        <th>No</th>
+                        <th style="width: 2%;">No</th>
                         <th>Nama Barang</th>
                         <th>Kategori Barang</th>
                         <th>Jumlah Barang</th>
-                        <th>Jual</th>
-                        <th>Beli</th>
+                        <th style="width: 10%;">Jual</th>
+                        <th style="width: 10%;">Beli</th>
                     </tr>
+                        <?php
+                        if ($resultBarang) {
+                            $i = 1 + $offset * ($page - 1);
+
+                            while ($row = mysqli_fetch_array($resultBarang)) {
+                                ?>
+                                <tr>
+                                    <td style="display: none;"><input type="text" name="idBarang" value="<?php echo $row['id'] ?>"></td>
+                                    <td><?php echo $i; ?></td>
+                                    <td><?php echo $row["nama"]; ?></td>
+                                    <td><?php echo $row["kategori"]; ?></td>
+                                    <td><?php echo $row["jumlah"]; ?></td>
+
+                                    <td style="width: 10%"><button class="btn btn-jual" onclick="openForm(this.id, 'Jual', '<?php echo $row['nama']; ?>', '<?php echo $row['jumlah']; ?>', '<?php echo $row['harga_jual']; ?>')" id="<?php echo $row["id"]; ?>">Jual</button></td>
+                                    <td style="width: 10%"><button class="btn btn-beli" onclick="openForm(this.id, 'Beli', '<?php echo $row['nama']; ?>', '<?php echo $row['jumlah']; ?>', '<?php echo $row['harga_beli']; ?>')" id="<?php echo $row["id"]; ?>">Beli</button></td>
+                                </tr>
+                        <?php
+                        $i++;
+                            }
+                        }
+                        ?>
+                </table>
+
+                <table style="float: right; border: none; width: 10%;">
                     <tr>
-                        <td>1</td>
-                        <td>Buku Tulis</td>
-                        <td>Konsumsi</td>
-                        <td>100</td>
-                        <td><button class="btn" style="background-color: #4ED964; color: white; font-size: 12px;">Jual</button></td>
-                        <td><button class="btn" style="background-color: #FF3A31; color: white; font-size: 12px;">Beli</button></td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Buku Gambar</td>
-                        <td>Konsumsi</td>
-                        <td>28</td>
-                        <td><button class="btn" style="background-color: #4ED964; color: white; font-size: 12px;">Jual</button></td>
-                        <td><button class="btn" style="background-color: #FF3A31; color: white; font-size: 12px;">Beli</button></td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Printer</td>
-                        <td>Non-Konsumsi</td>
-                        <td>3</td>
-                        <td><button class="btn" style="background-color: #4ED964; color: white; font-size: 12px;">Jual</button></td>
-                        <td><button class="btn" style="background-color: #FF3A31; color: white; font-size: 12px;">Beli</button></td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>Pensil 3B</td>
-                        <td>Konsumsi</td>
-                        <td>47</td>
-                        <td><button class="btn" style="background-color: #4ED964; color: white; font-size: 12px;">Jual</button></td>
-                        <td><button class="btn" style="background-color: #FF3A31; color: white; font-size: 12px;">Beli</button></td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>Bolpoin Pilot</td>
-                        <td>Konsumsi</td>
-                        <td>100</td>
-                        <td><button class="btn" style="background-color: #4ED964; color: white; font-size: 12px;">Jual</button></td>
-                        <td><button class="btn" style="background-color: #FF3A31; color: white; font-size: 12px;">Beli</button></td>
-                    </tr>
-                    <tr>
-                        <td>6</td>
-                        <td>Bolpoin Standar</td>
-                        <td>Konsumsi</td>
-                        <td>100</td>
-                        <td><button class="btn" style="background-color: #4ED964; color: white; font-size: 12px;">Jual</button></td>
-                        <td><button class="btn" style="background-color: #FF3A31; color: white; font-size: 12px;">Beli</button></td>
+                        <td style="<?php if ($page <= 1) {echo "display: none;";}?> "><a href="jual_beli.php?page=1">First</a></td>
+                        <td style="<?php if ($page <= 1) {echo "display: none;";}?> "><a href="jual_beli.php?page=<?php echo $page - 1 ?>">Prev</a></td>
+                        <td style="<?php if ($page >= $totalPages) {echo "display: none;";}?> "><a href="jual_beli.php?page=<?php echo $page + 1 ?>">Next</a></td>
+                        <td style="<?php if ($page >= $totalPages) {echo "display: none;";}?> "><a href="jual_beli.php?page=<?php echo $totalPages ?>">Last</a></td>
                     </tr>
                 </table>
             </div>
@@ -91,6 +108,13 @@
 </body>
 
 <script>
+
+var itemID;
+var itemHarga;
+var itemNama;
+var itemTotal;
+var totalHarga;
+
 jQuery(function($) {
     $("#close-sidebar").click(function() {
         $(".page-wrapper").removeClass("toggled");
@@ -100,6 +124,110 @@ jQuery(function($) {
         $(".page-wrapper").addClass("toggled");
     });
 });
+
+function beliBarang() {       
+    var jumlahBarang = $('#inputJumlahBeliBarang').val();
+
+    $.post("../Database/jual_beli.php", {
+        id: itemID,
+        barang: itemNama,
+        jumlah: jumlahBarang,
+        jenisTransaksi: 'Pembelian',
+        total: totalHarga
+
+        }, function(data, status) {
+            if (data.status == 'failed') {
+                alert("Pembelian Barang Gagal");
+            } else {
+                alert("Pembelian Barang Berhasil");
+            }
+            window.location.reload(true);
+        }
+    );
+}
+
+function jualBarang() {       
+    var jumlahBarang = $('#inputJumlahJualBarang').val();
+
+    $.post("../Database/jual_beli.php", {
+        id: itemID,
+        barang: itemNama,
+        jumlah: jumlahBarang,
+        jenisTransaksi: 'Penjualan',
+        total: totalHarga
+
+        }, function(data, status) {
+            if (data.status == 'failed') {
+                alert("Penjualan Barang Gagal");
+            } else {
+                alert("Penjualan Barang Berhasil");
+            }
+            window.location.reload(true);
+        }
+    );
+}
+
+function openForm(id, typeForm, namaItem, totalItem, hargaItem) {
+    if (typeForm == "Jual") {
+        document.getElementById("formJual").style.display = "block";
+    } else {
+        document.getElementById("formBeli").style.display = "block";
+    }
+
+    itemID = id;
+    itemHarga = hargaItem;
+    itemNama = namaItem;
+    itemTotal = totalItem;
+}
+
+function closeForm(typeForm) {
+    if (typeForm == "Jual") {
+        document.getElementById("formJual").style.display = "none";
+    } else {
+        document.getElementById("formBeli").style.display = "none";
+    }
+
+    itemHarga = 0;
+    itemNama = "";
+    itemTotal = 0;
+    totalHarga = 0;
+
+    document.getElementById('inputJumlahJualBarang').value = 0;
+    document.getElementById('inputJumlahBeliBarang').value = 0;
+
+    document.getElementById('totalHargaJual').innerHTML = 0;
+    document.getElementById('totalHargaBeli').innerHTML = 0;
+}
+
+function formTotalHarga(jenisTransaksi) {
+    var jumlahJualBarang = document.getElementById('inputJumlahJualBarang');
+    var jumlahBeliBarang = document.getElementById('inputJumlahBeliBarang');
+
+    if (jenisTransaksi == "Jual") {
+        if (parseInt(jumlahJualBarang.value) > itemTotal) {
+            alert("Persediaan Barang Tidak Mencukupi");
+            jumlahJualBarang.value = itemTotal;
+        } 
+
+        if (parseInt(jumlahJualBarang.value) < 0) {
+            jumlahJualBarang.value = 0;
+        }
+
+        totalHarga = itemHarga * jumlahJualBarang.value;
+        document.getElementById('totalHargaJual').innerHTML = totalHarga;
+    } else {
+        if (parseInt(jumlahBeliBarang.value) < 0) {
+            jumlahBeliBarang.value = 0;
+        }
+        
+        totalHarga = itemHarga * jumlahBeliBarang.value;
+        document.getElementById('totalHargaBeli').innerHTML = totalHarga;
+    }
+}
+
+function totalHargaBeli() {
+
+}
 </script>
 
 </html>

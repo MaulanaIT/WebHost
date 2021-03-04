@@ -10,6 +10,6 @@
 
         $query = "SELECT * FROM daftar_kategori WHERE id='$id'";
 
-        $result = mysqli_query($connect, $query);
+        $resultSelectedKategori = mysqli_query($connect, $query);
     }
 ?>

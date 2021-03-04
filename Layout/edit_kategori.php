@@ -1,4 +1,5 @@
 <?php
+    include '../Config/session.php';
     include "../Database/selected_kategori.php";
 ?>
 
@@ -35,8 +36,8 @@
                             <div class="form-group">
                                 <label>Nama Kategori</label> <br>
                                 <?php
-                                    if ($resultKategori) {
-                                        while($row = mysqli_fetch_array($resultKategori)) {
+                                    if ($resultSelectedKategori) {
+                                        while($row = mysqli_fetch_array($resultSelectedKategori)) {
                                             ?>
                                                 <input type="text" class="form-control" style="display: none;" name="idEditKategori" value="<?php echo $row["id"]; ?>"></input>
                                                 <input type="text" class="form-control" name="namaEditKategori" id="inputNamaKategori" value="<?php echo $row["nama"]; ?>">

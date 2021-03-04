@@ -17,15 +17,15 @@
     <div class="login">
         <h2 class="judul">Masukkan Identitas Admin</h2>
 
-        <form action="">
+        <form action="../Database/login.php" method="POST">
             <div class="form-group akun">
                 <label>Username</label>
-                <input type="text" class="form-control" id="inputUsername" placeholder="Masukkan Username Admin">
+                <input type="text" class="form-control" name="inputUsername" placeholder="Masukkan Username Admin">
             </div>
 
             <div class="form-group akun">
                 <label>Password</label>
-                <input type="password" class="form-control" id="inputPassword" placeholder="Masukkan Password Admin">
+                <input type="password" class="form-control" name="inputPassword" placeholder="Masukkan Password Admin">
             </div>
 
             <div class="form-group submit">
